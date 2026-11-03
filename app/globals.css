@@ -2,26 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Palette par défaut (sépia, Dérive 0). Le composant Game les réécrit
+   dynamiquement selon la jauge de Dérive. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --c-bg: #251c12;
+  --c-panel: #322619;
+  --c-panel-bord: #4d3c27;
+  --c-accent: #d9a441;
+  --c-texte: #f0e4cd;
+  --c-texte-doux: #b3a284;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--c-texte);
+  background: var(--c-bg);
+  transition:
+    background-color 1.2s ease,
+    color 1.2s ease;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Les panneaux héritent de la transition pour que la bascule de palette
+   (montée de la Dérive) soit un glissement, pas un claquement. */
+.panneau {
+  background: var(--c-panel);
+  border: 1px solid var(--c-panel-bord);
+  transition:
+    background-color 1.2s ease,
+    border-color 1.2s ease;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-panel-bord);
+  border-radius: 4px;
 }
